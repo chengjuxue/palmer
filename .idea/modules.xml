@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/palmer.iml" filepath="$PROJECT_DIR$/palmer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/palmer-dal/palmer-dal.iml" filepath="$PROJECT_DIR$/palmer-dal/palmer-dal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/palmer-facade/palmer-facade.iml" filepath="$PROJECT_DIR$/palmer-facade/palmer-facade.iml" />
+      <module fileurl="file://$PROJECT_DIR$/palmer-remote/palmer-remote.iml" filepath="$PROJECT_DIR$/palmer-remote/palmer-remote.iml" />
+      <module fileurl="file://$PROJECT_DIR$/palmer-service/palmer-service.iml" filepath="$PROJECT_DIR$/palmer-service/palmer-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/palmer-test/palmer-test.iml" filepath="$PROJECT_DIR$/palmer-test/palmer-test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/palmer-util/palmer-util.iml" filepath="$PROJECT_DIR$/palmer-util/palmer-util.iml" />
+      <module fileurl="file://$PROJECT_DIR$/palmer-webapp/palmer-webapp.iml" filepath="$PROJECT_DIR$/palmer-webapp/palmer-webapp.iml" />
+    </modules>
+  </component>
+</project>

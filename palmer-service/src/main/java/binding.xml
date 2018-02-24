@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<binding value-style="attribute">
+  <mapping class="com.palmer.demo.service.netty.jibx.Order" name="order">
+    <value name="num" field="num"/>
+    <structure field="address" usage="optional" name="address">
+      <value style="element" name="country" field="country" usage="optional"/>
+      <value style="element" name="city" field="city" usage="optional"/>
+      <value style="element" name="street" field="street" usage="optional"/>
+    </structure>
+  </mapping>
+</binding>

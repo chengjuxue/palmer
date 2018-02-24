@@ -1,0 +1,43 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+        <artifactId>palmer-parent</artifactId>
+        <groupId>com.palmer.demo</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>palmer-webapp</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+    <name>palmer-webapp Maven Webapp</name>
+    <description>palmer web服务</description>
+    <!--项目主页的URL-->
+    <url>http://maven.apache.org</url>
+    <dependencies>
+        <!--依赖于service-->
+        <dependency>
+            <groupId>com.palmer.demo</groupId>
+            <artifactId>palmer-service</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+        </dependency>
+    </dependencies>
+    <!--构建此项目所需的信息-->
+    <build>
+        <finalName>palmer-webapp</finalName>
+    </build>
+</project>

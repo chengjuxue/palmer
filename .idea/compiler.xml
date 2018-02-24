@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="palmer-dal" />
+        <module name="palmer-facade" />
+        <module name="palmer-remote" />
+        <module name="palmer-service" />
+        <module name="palmer-test" />
+        <module name="palmer-util" />
+        <module name="palmer-webapp" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="palmer" target="1.5" />
+      <module name="palmer-dal" target="1.5" />
+      <module name="palmer-facade" target="1.5" />
+      <module name="palmer-remote" target="1.5" />
+      <module name="palmer-service" target="1.5" />
+      <module name="palmer-test" target="1.5" />
+      <module name="palmer-util" target="1.5" />
+      <module name="palmer-webapp" target="1.5" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

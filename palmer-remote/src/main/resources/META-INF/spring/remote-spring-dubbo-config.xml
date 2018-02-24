@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+       http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!--
+        只有group,interface,version是服务的匹配条件，三者决定是不是同一个服务，其他匹配项均为调优和治理参数
+        所有的配置最终都将转换为URL表示
+        URL格式：protocal://username:password@host:port/path?key=value@key=value
+    -->
+
+    <!--提供应用信息，用于计算依赖关系-->
+    <dubbo:application name="palmer" />
+
+    <!--
+        使用zookeeper广播注册中心暴露服务地址
+        register:注册配置，为false时表示只订阅不注册
+        subscribe:订阅配置，为false时表示不订阅
+    -->
+    <!--
+        多注册中心配置
+        不同服务可注册到不同的注册中心，同一服务也可注册到不同的注册中心
+        protocol:注册中心地址协议，有三种：dubbo，http,local三种协议
+        address:注册中心服务器地址，如果地址没有端口，缺省为9090
+        file:缓存文件。这个缓存文件会缓存注册中心的列表和提供者列表。
+            有了这项配置后，当应用重启过程时，dubbo注册中心不可用时，则应用会从这个缓存文件中获取提供者列表的信息，进一步保证应用的可靠性。
+    -->
+    <dubbo:registry id="registry1"
+                    server="zkRegistry"
+                    protocol="${dubbo.registry.protocol}"
+                    address="${dubbo.registry.address}"
+                    file="${dubbo.registry.file}"
+                    register="true"
+                    subscribe="true"/>
+
+    <dubbo:registry id="registry2" address="172.20.xxx.yyy" port="8091" default="false"/>
+
+    <!--
+    使用dubbo协议在指定端口暴露服务
+    payload:请求及响应数据包大小限制，单位是bit
+    -->
+    <!--多协议配置-->
+    <dubbo:protocol port="${dubbo.protocol.port}" name="dubbo" payload="16777216"/>
+    <dubbo:protocal port="1099" name="rmi"/>
+    <!--
+    token:全局设置令牌验证。true:随记令牌，使用uuid生成；为具体值，固定密码；也可在服务级别、协议级别设置
+    -->
+    <dubbo:provider timeout="${dubbo.provider.timeout}" token="true"/>
+    <dubbo:consumer>
+        <dubbo:parameter key="timeout" value="${dubbo.provider.timeout}" />
+        <dubbo:parameter key="connect.timeout" value="${dubbo.provider.timeout}" />
+    </dubbo:consumer>
+
+</beans>

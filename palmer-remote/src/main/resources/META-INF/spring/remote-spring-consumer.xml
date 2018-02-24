@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+       http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!--生成远程服务代理，可以像本地一样使用-->
+    <!--
+    dubbo缺省在启动时会检查依赖的服务是否可用，如果不可用会排除异常，阻止spring初始化完成，默认是check=true
+    url:绕过注册中心，直连某一提供者
+    version:指定版本号，若为"*"，则不区分版本
+    merge:合并返回结果
+    validation:参数验证，JSR303
+    cache:缓存，用于加快访问热数据速度。lru，使用最少使用原则删除多余缓存，保持最热的数据被缓存
+    -->
+    <dubbo:reference id="sayHelloService" interface="com.palmer.demo.facade.api.SayHelloService"
+                     check="false"
+                     url="dubbo://localhost:20890"
+                     version="1.0.0"
+                     merge="false"
+                     validation="false"
+                     cache="lru">
+        <!--
+        async:异步调用
+        sent:是否等待消息发出。true:等待消息发出，发送失败抛出异常；false:不等待消息发出，将消息加入io对象，即可返回。
+        -->
+        <dubbo:method name="sayHello" async="true"/>
+    </dubbo:reference>
+    <!--调用相同接口的不同实现，不同组-->
+    <dubbo:reference id="sayGoodbyeService_group1" interface="com.palmer.demo.facade.api.SayGoodbyeService"
+                     group="group1"/>
+    <dubbo:reference id="sayGoodbyeService_group2" interface="com.palmer.demo.facade.api.SayGoodbyeService"
+                     group="group2"/>
+
+    <!--关闭所有服务的启动时检查（没有提供者时报错）-->
+    <dubbo:consumer check="false"/>
+
+    <!--失败自动切换，调用其他服务器，重试次数（不包括第一次）-->
+    <dubbo:reference retries="2"/>
+
+    <!--集群模式配置-->
+    <dubbo:reference cluster="failsafe"/>
+</beans>

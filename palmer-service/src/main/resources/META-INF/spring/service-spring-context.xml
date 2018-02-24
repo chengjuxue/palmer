@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+
+
+    <!--隐式的注入像@Autowired等注解-->
+    <context:annotation-config/>
+
+    <!--归集各模块的spring配置文件-->
+    <import resource="classpath*:META-INF/spring/dal-spring-context.xml"/>
+    <import resource="classpath*:META-INF/spring/remote-spring-context.xml"/>
+
+    <import resource="classpath:META-INF/spring/redis-spring.xml" />
+    <import resource="classpath:META-INF/spring/service-spring-provider.xml"/>
+    <import resource="classpath:META-INF/spring/service-spring-rocketmq.xml"/>
+</beans>

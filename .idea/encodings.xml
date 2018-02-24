@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" native2AsciiForPropertiesFiles="true" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/palmer-dal" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/palmer-facade" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/palmer-remote" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/palmer-service" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/palmer-test" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/palmer-util" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/palmer-webapp" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>

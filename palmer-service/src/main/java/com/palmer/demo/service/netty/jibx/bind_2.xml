@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="test-jibx" default="bind" basedir="/Users/xcj/testAllIn/myproject/palmer/palmer-service/src/main/java">
+
+	<path id="classpath">
+        <dirset dir="/Users/xcj/testAllIn/myproject/palmer/palmer-service/target/classes" />
+        <!--<dirset dir="${basedir}/target/test-classes" />-->
+        <fileset dir="/Users/xcj/testAllIn/repo/org/jibx/jibx-bind/1.2.6/" includes="*.jar" />
+        <fileset dir="/Users/xcj/testAllIn/repo/org/jibx/jibx-run/1.2.6/" includes="*.jar" />
+        <fileset dir="/Users/xcj/testAllIn/repo/bcel/bcel/5.1/" includes="*.jar" />
+    </path>
+
+    <!--默认生成的binding.xml文件放在${basedir}目录下-->
+	<target name="bindgen">
+		<echo message="Running BindGen tool"/>
+        <!--必须有编译好的.class文件-->
+		<java classpathref="classpath" fork="true" failonerror="true" classname="org.jibx.binding.BindingGenerator">
+            <arg value="com.palmer.demo.service.netty.jibx.Order"/>
+        </java> 	
+	</target>
+
+    <!--默认生成的JiBX_bindingFactory.class和JiBX_bindingOrder_access.class放在classpath中-->
+	<target name="bind" depends="bindgen">
+        <echo message="Running bind" />
+        <taskdef name="bind" classname="org.jibx.binding.ant.CompileTask">
+            <classpath refid="classpath"/>
+        </taskdef>
+        <!--binding.xml的目录-->
+        <bind binding="${basedir}/binding.xml">
+            <classpath refid="classpath"/>
+        </bind>
+    </target>	
+
+
+</project>	

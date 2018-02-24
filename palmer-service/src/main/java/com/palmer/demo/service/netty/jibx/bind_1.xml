@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="test-jibx" default="main" basedir="/Users/xcj/testAllIn/myproject/palmer/palmer-service/src/main/java">
+
+	<path id="classpath">
+        <dirset dir="${basedir}/target/classes" />
+        <dirset dir="${basedir}/target/test-classes" />
+        <fileset dir="/Users/xcj/testAllIn/repo/org/jibx/jibx-bind/1.2.6/" includes="*.jar" />
+        <fileset dir="/Users/xcj/testAllIn/repo/org/jibx/jibx-run/1.2.6/" includes="*.jar" />
+        <fileset dir="/Users/xcj/testAllIn/repo/bcel/bcel/5.1/" includes="*.jar" />
+    </path>
+
+	<target name="main" depends="compile,bindgen, bind" description="Main target" />
+
+	<target name="compile" description="Compilation target">
+		<property name="targetdir" value="/Users/xcj/testAllIn/myproject/palmer/palmer-service/target/classes/com/palmer/demo/service/netty/jibx" />
+        <echo>Compile java file</echo>
+        <javac srcdir="${basedir}" destdir="${targetdir}" includeantruntime="true" />
+    </target>
+
+	<target name="bindgen">
+		<echo message="Running BindGen tool"/>
+		<java classpathref="classpath" fork="true" failonerror="true" classname="org.jibx.binding.BindingGenerator">
+            <arg value="com.palmer.demo.service.netty.jibx.Order"/>
+        </java> 	
+	</target>
+
+	<target name="bind" depends="bindgen">
+        <echo message="Running bind" />
+        <taskdef name="bind" classname="org.jibx.binding.ant.CompileTask">
+            <classpath refid="classpath"/>
+        </taskdef>
+        <bind binding="${basedir}/com/palmer/demo/service/netty/jibx/binding.xml">
+            <classpath refid="classpath"/>
+        </bind>
+    </target>	
+
+
+</project>	

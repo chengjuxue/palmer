@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<!--mybatis-generator-maven-plugin生成数据库实体的配置文件-->
+<generatorConfiguration>
+    <!--引入外部属性文件    注：初试没有成功-->
+    <!--<properties resource="src/main/resources/META-INF/mybatis/generators/generator.properties"></properties>-->
+    <!-- classPathEntry:数据库的JDBC驱动,换成你自己的驱动位置 -->
+    <classPathEntry location="src/main/resources/META-INF/mybatis/generators/mysql-connector-java-5.1.36.jar" />
+    <context id="MBG" targetRuntime="MyBatis3" defaultModelType="conditional">
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <!--各种自动生成插件-->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+        <!--<plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />-->
+        <!--<plugin type="org.mybatis.generator.plugins.ToStringPlugin" />-->
+        <plugin type="org.mybatis.generator.plugins.MapperConfigPlugin">
+            <!--<property name="fileName" value="mapper_Student.xml"></property>-->
+        </plugin>
+        <!--分页插件-->
+        <!--<plugin type="org.mybatis.generator.plugins.PaginationPlugin" />-->
+        <!--注释生成配置器（Java字段，Java方法，XML元素，...），子元素有suppressDate和suppressAllComments-->
+        <commentGenerator>
+            <!--注释是否不产生时间标识-->
+            <property name="suppressDate" value="true"/>
+            <!-- 是否去除自动生成的所有注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+        <!--数据库链接URL，用户名、密码 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://192.168.20.40:3306/bwcrm"
+                        userId="devbwcrm"
+                        password="DEVbwcrm123!">
+        </jdbcConnection>
+        <!--<jdbcConnection driverClass="com.mysql.jdbc.Driver"-->
+        <!--connectionURL="${jdbc.druid.url}"-->
+        <!--userId="${jdbc.druid.user}"-->
+        <!--password="${jdbc.druid.password}">-->
+        <!--</jdbcConnection>-->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+        <!-- targetProject:自动生成代码的位置 -->
+        <!-- 生成模型的包名和位置-->
+        <javaModelGenerator targetPackage="com.palmer.demo.model" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+        </javaModelGenerator>
+        <!-- 生成映射文件的包名和位置-->
+        <sqlMapGenerator targetPackage="mybatis.mapping" targetProject="src/main/resources" >
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+        <!-- 生成DAO的包名和位置-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.palmer.demo.dao" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+
+        <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名，这里举例，只配置了一个table，你可以配置多个-->
+        <!--<table tableName="bw_interview" domainObjectName="Interview"-->
+               <!--enableCountByExample="false"-->
+               <!--enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false"-->
+               <!--enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--<generatedKey column="ID" sqlStatement="MYSQL" identity="true" />-->
+        <!--</table>-->
+
+        <table tableName="bw_test_test1" domainObjectName="test"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false">
+            <generatedKey column="ID" sqlStatement="MYSQL" identity="true" />
+        </table>
+
+    </context>
+</generatorConfiguration>

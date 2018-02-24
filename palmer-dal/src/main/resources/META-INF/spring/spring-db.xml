@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+    <!--datasource配置-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+          init-method="init" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.druid.driverClassName}" />
+        <property name="url">
+            <value>${jdbc.druid.url}</value>
+        </property>
+        <property name="username">
+            <value>${jdbc.druid.user}</value>
+        </property>
+        <property name="password">
+            <value>${jdbc.druid.password}</value>
+        </property>
+        <property name="filters">
+            <value>${jdbc.druid.filters}</value>
+        </property>
+        <property name="maxActive">
+            <value>${jdbc.druid.maxActive}</value>
+        </property>
+        <property name="initialSize">
+            <value>${jdbc.druid.initialSize}</value>
+        </property>
+        <property name="maxWait">
+            <value>${jdbc.druid.maxWait}</value>
+        </property>
+        <property name="minIdle">
+            <value>${jdbc.druid.minIdle}</value>
+        </property>
+        <property name="timeBetweenEvictionRunsMillis">
+            <value>${jdbc.druid.timeBetweenEvictionRunsMillis}</value>
+        </property>
+        <property name="minEvictableIdleTimeMillis">
+            <value>${jdbc.druid.minEvictableIdleTimeMillis}</value>
+        </property>
+        <property name="validationQuery">
+            <value>${jdbc.druid.validationQuery}</value>
+        </property>
+        <property name="testWhileIdle">
+            <value>${jdbc.druid.testWhileIdle}</value>
+        </property>
+        <property name="testOnBorrow">
+            <value>${jdbc.druid.testOnBorrow}</value>
+        </property>
+        <property name="testOnReturn">
+            <value>${jdbc.druid.testOnReturn}</value>
+        </property>
+        <property name="poolPreparedStatements">
+            <value>${jdbc.druid.poolPreparedStatements}</value>
+        </property>
+        <property name="maxOpenPreparedStatements">
+            <value>${jdbc.druid.maxOpenPreparedStatements}</value>
+        </property>
+    </bean>
+
+    <!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--dataSource是数据源，可以使用DBCP、C3P0、Druid、jndi-lookup等多种方式配置-->
+        <property name="dataSource" ref="dataSource" />
+        <!-- mapperLocations是Mybatis需要加载的SqlMapper脚本配置文件(模式)。自动扫描mapping.xml文件 -->
+        <property name="mapperLocations" value="classpath:META-INF/mybatis/mapping/**/*.xml"/>
+        <!--configLocation是Mybatis引擎的全局配置，用于修饰Mybatis的行为-->
+        <property name="configLocation" value="classpath:META-INF/mybatis/mybatis-config.xml"/>
+        <!--
+        它一般对应我们的实体类所在的包，这个时候会自动取对应包中不包括包名的简单类名作为包括包名的别名。
+        多个package之间可以用逗号或者分号等来进行分隔。(value的值一定要是包的全名)
+        -->
+        <property name="typeAliasesPackage" value="com.palmer.demo.dao"/>
+
+    </bean>
+
+    <!--Mybatis MapperScannerConfigurer 自动扫描 将Mapper接口生成代理注入到Spring-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.palmer.demo.dao" />
+        <!--annotationClass 属性指定了要寻找的注解名称。-->
+        <property name="annotationClass" value="com.palmer.demo.annotation.MybatisMapper" />
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+
+    <!--事务管理-->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+        <property name="globalRollbackOnParticipationFailure" value="true" />
+    </bean>
+    <bean id="transactionTemplate"
+          class="org.springframework.transaction.support.TransactionTemplate">
+        <property name="transactionManager" ref="transactionManager" />
+    </bean>
+    <!--使用注释事务 -->
+    <tx:annotation-driven  transaction-manager="transactionManager" />
+
+</beans>

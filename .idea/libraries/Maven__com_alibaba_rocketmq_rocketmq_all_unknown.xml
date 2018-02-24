@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.alibaba.rocketmq:rocketmq-all:unknown">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../repo/com/alibaba/rocketmq/rocketmq-all/unknown/rocketmq-all-unknown.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/../../repo/com/alibaba/rocketmq/rocketmq-all/unknown/rocketmq-all-unknown-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../repo/com/alibaba/rocketmq/rocketmq-all/unknown/rocketmq-all-unknown-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
