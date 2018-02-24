@@ -7,5 +7,7 @@ package com.palmer.demo.mvc.controller;
  * @Description:
  */
 public class Test1Controller {
-
+    public void test1(){
+        return;
+    }
 }
